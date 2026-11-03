@@ -59,3 +59,69 @@ Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 0  Solution :  Artificial Intelligence<br>
+
+## Program:
+
+```
+import random
+import string
+
+
+def generate_random_solution(answer):
+    length = len(answer)
+    return [random.choice(string.printable) for _ in range(length)]
+
+
+def evaluate(solution, answer):
+    target = list(answer)
+    diff = 0
+
+    for i in range(len(target)):
+        s = solution[i]
+        t = target[i]
+
+        # Calculate the ASCII difference between characters
+        diff += abs(ord(s) - ord(t))
+
+    return diff
+
+
+def mutate_solution(solution):
+    index = random.randint(0, len(solution) - 1)
+    solution[index] = random.choice(string.printable)
+    return solution
+
+
+def simple_hill_climbing():
+    answer = "Artificial Intelligence"
+
+    # Generate initial random solution
+    best = generate_random_solution(answer)
+    best_score = evaluate(best, answer)
+
+    while True:
+        print("Score:", best_score, "Solution:", "".join(best))
+
+        # Stop when the solution matches the answer
+        if best_score == 0:
+            break
+
+        # Create a new solution by changing one character
+        new_solution = mutate_solution(list(best))
+        score = evaluate(new_solution, answer)
+
+
+        if score < best_score:
+            best = new_solution
+            best_score = score
+
+```
+
+## OUTPUT:
+
+<img width="613" height="555" alt="image" src="https://github.com/user-attachments/assets/9e1b5ec8-3212-4453-a55d-cdd9a208f85b" />
+
+<img width="558" height="571" alt="image" src="https://github.com/user-attachments/assets/000c8547-164c-43cb-9883-e56644c1516b" />
+
+## RESULT:
+Thus the Implementation of Simple Hill Climbing Algorithm is implemented successfully
